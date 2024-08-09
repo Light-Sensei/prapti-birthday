@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Generate and display puzzle
     function createPuzzle() {
-        const imageUrl = 'path/to/your/image.jpg'; // Update with your image path
+        const imageUrl = 'imgok_lol.jpg'; // Update with your image path
         const pieces = [];
 
         for (let i = 0; i < puzzleSize * puzzleSize; i++) {
