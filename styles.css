@@ -1,0 +1,54 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* Puzzle Styles */
+#puzzle {
+    margin: 20px;
+}
+
+#puzzle-container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 2px;
+    margin: auto;
+    max-width: 408px;
+}
+
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    background-size: 400px 400px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#math-question, #love-question {
+    margin: 20px;
+}
+
+#no-button {
+    transition: transform 0.3s;
+}
+
+#yes-button {
+    transition: transform 0.3s;
+}
+
+.reward-item {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+
