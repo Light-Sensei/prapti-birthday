@@ -5,37 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Games</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="mini-games.js" defer></script>
 </head>
 <body class="background-image">
     <div class="content-container">
         <h1>Mini Games</h1>
-
-        <!-- Block Puzzle -->
-        <div id="puzzle">
-            <h2>Block Puzzle</h2>
-            <div id="puzzle-container"></div>
-            <button onclick="shufflePuzzle()">Shuffle Puzzle</button>
-        </div>
-
-        <!-- Math Question -->
-        <div id="math-question">
-            <h2>Math Question</h2>
-            <p id="math-problem"></p>
-            <input type="text" id="math-answer">
-            <button onclick="checkMathAnswer()">Submit</button>
-            <p id="math-feedback"></p>
-        </div>
-
-        <!-- Love Question -->
-        <div id="love-question">
-            <h2>Do you love me?</h2>
-            <button id="no-button" onclick="handleNoClick()">No</button>
-            <button id="yes-button" onclick="handleYesClick()">Yes</button>
-        </div>
-
-        <!-- Next Page Button -->
-        <button onclick="location.href='rewards.html'">Go to Rewards</button>
+        <button class="purple-button" onclick="location.href='puzzle.html'">Start Puzzle Game</button>
     </div>
 </body>
 </html>
