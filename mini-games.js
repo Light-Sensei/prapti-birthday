@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const puzzleContainer = document.getElementById('puzzle-container');
-    const puzzleSize = 4; // 4x4 puzzle
+    const puzzleSize = 3; // 3x3 puzzle
 
     // Generate and display puzzle
     function createPuzzle() {
-        const imageUrl = imgok_lol.jpg; // Update with your image path
+        const imageUrl = 'path/to/your/image.jpg'; // Update with your image path
         const pieces = [];
 
         for (let i = 0; i < puzzleSize * puzzleSize; i++) {
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             piece.style.backgroundImage = `url(${imageUrl})`;
             piece.style.backgroundPosition = `-${(i % puzzleSize) * 100}px -${Math.floor(i / puzzleSize) * 100}px`;
             piece.dataset.position = i;
-            piece.addEventListener('click', () => movePiece(piece));
             pieces.push(piece);
         }
 
@@ -22,14 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         pieces.forEach(piece => puzzleContainer.appendChild(piece));
     }
 
-    function movePiece(piece) {
-        // Implement piece movement logic here
-        // This should swap the clicked piece with an empty space
-    }
-
     window.shufflePuzzle = function() {
+        puzzleContainer.innerHTML = '';
         createPuzzle();
     };
+
+    createPuzzle(); // Initialize the puzzle
 
     // Math Question Script
     const mathProblem = document.getElementById('math-problem');
@@ -68,6 +65,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.handleYesClick = function() {
         alert('Thank you for loving me!');
     };
-
-    createPuzzle(); // Initialize the puzzle
 });
