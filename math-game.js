@@ -1,42 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mathQuestionsContainer = document.getElementById('math-questions-container');
-    let correctAnswers = 0;
+    const questionsContainer = document.getElementById('math-questions-container');
+    const numQuestions = 10;
+    let currentQuestion = 0;
 
-    const questions = [
-        { question: "2 + 2 =", answer: 4 },
-        { question: "5 * 3 =", answer: 15 },
-        { question: "10 / 2 =", answer: 5 },
-        { question: "8 - 4 =", answer: 4 },
-        { question: "9 + 1 =", answer: 10 },
-        { question: "7 * 2 =", answer: 14 },
-        { question: "12 / 3 =", answer: 4 },
-        { question: "6 - 3 =", answer: 3 },
-        { question: "4 + 6 =", answer: 10 },
-        { question: "10 * 1 =", answer: 10 }
-    ];
+    function generateMathQuestions() {
+        for (let i = 0; i < numQuestions; i++) {
+            const questionElement = document.createElement('p');
+            questionElement.textContent = `Question ${i + 1}: What is ${Math.floor(Math.random() * 10)} + ${Math.floor(Math.random() * 10)}?`;
+            const answerInput = document.createElement('input');
+            answerInput.type = 'number';
+            answerInput.id = `answer-${i}`;
+            questionsContainer.appendChild(questionElement);
+            questionsContainer.appendChild(answerInput);
+        }
+        const submitButton = document.createElement('button');
+        submitButton.textContent = 'Submit';
+        submitButton.onclick = handleSubmit;
+        questionsContainer.appendChild(submitButton);
+    }
 
-    questions.forEach((q, index) => {
-        const div = document.createElement('div');
-        div.innerHTML = `<p>${q.question}</p><input type="number" id="answer-${index}"><br>`;
-        mathQuestionsContainer.appendChild(div);
-    });
-
-    const submitButton = document.createElement('button');
-    submitButton.innerText = "Submit Answers";
-    submitButton.addEventListener('click', () => {
-        correctAnswers = 0;
-        questions.forEach((q, index) => {
-            const answer = document.getElementById(`answer-${index}`).value;
-            if (parseInt(answer) === q.answer) {
-                correctAnswers++;
+    function handleSubmit() {
+        let allCorrect = true;
+        for (let i = 0; i < numQuestions; i++) {
+            const input = document.getElementById(`answer-${i}`);
+            const questionText = document.querySelector(`#math-questions-container p:nth-child(${i * 2 + 1})`).textContent;
+            const [_, a, b] = questionText.match(/What is (\d+) \+ (\d+)\?/);
+            if (parseInt(input.value, 10) !== (parseInt(a, 10) + parseInt(b, 10))) {
+                allCorrect = false;
+                break;
             }
-        });
-
-        if (correctAnswers === 10) {
+        }
+        if (allCorrect) {
             document.getElementById('next-game-button').style.display = 'block';
         } else {
-            alert("You need to get all answers correct!");
+            alert('Some answers are incorrect. Please try again.');
         }
-    });
-    mathQuestionsContainer.appendChild(submitButton);
+    }
+
+    generateMathQuestions();
 });
