@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const skipButton = document.getElementById('skip-button');
     let skipped = false;
 
     function handleYes() {
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const noButton = document.getElementById('no-button');
         const yesButton = document.getElementById('yes-button');
 
-        // Randomly shift the no button's position and increase the yes button's size
         noButton.style.position = 'relative';
         noButton.style.top = `${Math.random() * 10}px`;
         noButton.style.left = `${Math.random() * 10}px`;
@@ -31,12 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'rewards.html';
     }
 
-    // Ensure the skip logic is correctly handled
-    if (skipped) {
-        localStorage.setItem('canSelectReward', 'false');
+    function goToNextGame() {
+        const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
+
+        if (skipCount > 1) {
+            localStorage.setItem('canSelectReward', 'false');
+        }
+
+        window.location.href = 'rewards.html';
     }
 
     window.handleYes = handleYes;
     window.handleNo = handleNo;
     window.handleSkip = handleSkip;
+    window.goToNextGame = goToNextGame;
 });
