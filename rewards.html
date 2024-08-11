@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Reward</title>
+    <title>Rewards</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="background-image">
     <div class="content-container">
         <h1>Choose Your Reward</h1>
-        <div class="rewards-container">
-            <img src="https://i.pinimg.com/564x/49/4a/85/494a85ce68d24fe0587ada40ca590f6d.jpg" onclick="selectReward(1)">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQZoyWQoXNTrD9nOdEBxp9tvMIVZRpTUYJwZhbhS41pZO7AWWy_4X6qsuqTADMBbOBdFY&usqp=CAU" onclick="selectReward(2)">
-            <img src="https://i.pinimg.com/736x/72/12/a5/7212a5a2608c8bf5f7204cc4e0b8f655.jpg" onclick="selectReward(3)">
-            <img src="https://i.pinimg.com/originals/5b/87/cc/5b87cc1d14cf463af3632dc15504e374.jpg" onclick="selectReward(4)">
-            <img src="https://m.media-amazon.com/images/I/61GEB3wTNHL._AC_SY780_.jpg" onclick="selectReward(5)">
-        </div>
+        <img class="reward-outfit" src="https://i.pinimg.com/564x/49/4a/85/494a85ce68d24fe0587ada40ca590f6d.jpg" alt="Outfit 1" onclick="selectReward('Outfit 1')">
+        <img class="reward-outfit" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQZoyWQoXNTrD9nOdEBxp9tvMIVZRpTUYJwZhbhS41pZO7AWWy_4X6qsuqTADMBbOBdFY&usqp=CAU" alt="Outfit 2" onclick="selectReward('Outfit 2')">
+        <img class="reward-outfit" src="https://i.pinimg.com/736x/72/12/a5/7212a5a2608c8bf5f7204cc4e0b8f655.jpg" alt="Outfit 3" onclick="selectReward('Outfit 3')">
+        <img class="reward-outfit" src="https://i.pinimg.com/originals/5b/87/cc/5b87cc1d14cf463af3632dc15504e374.jpg" alt="Outfit 4" onclick="selectReward('Outfit 4')">
+        <img class="reward-outfit" src="https://m.media-amazon.com/images/I/61GEB3wTNHL._AC_SY780_.jpg" alt="Outfit 5" onclick="selectReward('Outfit 5')">
     </div>
     <script>
-        function selectReward(id) {
-            alert("Yay! You got it (I'm broke, I can't get you a real one, sorry)");
+        document.addEventListener('DOMContentLoaded', () => {
+            const canSelectReward = localStorage.getItem('canSelectReward');
+            if (canSelectReward === 'false') {
+                alert("You cannot select a reward because you skipped more than one game.");
+                document.querySelectorAll('.reward-outfit').forEach(outfit => {
+                    outfit.style.pointerEvents = 'none';
+                    outfit.style.opacity = '0.5';
+                });
+            }
+        });
+
+        function selectReward(outfit) {
+            alert(`Yaya! You got it (I'm broke, I can't get you the real one, sorry)`);
         }
     </script>
 </body>
