@@ -5,25 +5,25 @@ body, html {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #ffffff;
+    height: 100%;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-top: 20px;
-    color: #000000;
-}
-
-/* Background Image for all pages */
+/* Fullscreen Background Image */
 .background-image {
     background-image: url('https://img.freepik.com/free-vector/rainbow-frame-cute-doodle-border-vector_53876-135969.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1723248000&semt=ais_hybrid');
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
+    min-height: 100vh; /* Ensure it covers the full viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Container for content to center and add padding */
 .content-container {
     max-width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -109,4 +109,18 @@ button#no-button, button#yes-button {
 
 button#no-button {
     position: relative;
+}
+
+/* Reward Page Styles */
+.reward-outfit {
+    margin: 20px;
+    max-width: 200px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.reward-outfit:hover {
+    border-color: #800080;
 }
