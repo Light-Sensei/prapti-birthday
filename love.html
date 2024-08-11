@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me?</title>
+    <title>Love Game</title>
     <link rel="stylesheet" href="styles.css">
     <script src="love-game.js" defer></script>
+    <script src="skip.js" defer></script>
 </head>
 <body class="background-image">
     <div class="content-container">
         <h1>Do You Love Me?</h1>
-        <button id="no-button" onclick="handleNoClick()">No</button>
-        <button id="yes-button" onclick="handleYesClick()">Yes</button>
+        <button id="yes-button" onclick="handleYes()">Yes</button>
+        <button id="no-button" onclick="handleNo()">No</button>
+        <button id="skip-button" onclick="handleSkip()">Skip</button>
     </div>
 </body>
 </html>
