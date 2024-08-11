@@ -9,7 +9,7 @@ body {
 
 /* Background Styles */
 .background {
-    background: url('path/to/your/background-image.jpg') no-repeat center center fixed;
+    background: url(pathtoyourbackground-image.jpg) no-repeat center center fixed;
     background-size: cover;
     height: 100vh;
     display: flex;
