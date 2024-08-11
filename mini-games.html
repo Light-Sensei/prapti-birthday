@@ -7,33 +7,35 @@
     <link rel="stylesheet" href="styles.css">
     <script src="mini-games.js" defer></script>
 </head>
-<body>
-    <h1>Mini Games</h1>
+<body class="minigames-bg">
+    <div class="minigames-container">
+        <h1>Mini Games</h1>
 
-    <!-- Block Puzzle -->
-    <div id="puzzle">
-        <h2>Block Puzzle</h2>
-        <div id="puzzle-container"></div>
-        <button onclick="shufflePuzzle()">Shuffle Puzzle</button>
+        <!-- Block Puzzle -->
+        <div id="puzzle">
+            <h2>Block Puzzle</h2>
+            <div id="puzzle-container"></div>
+            <button onclick="shufflePuzzle()">Shuffle Puzzle</button>
+        </div>
+
+        <!-- Math Question -->
+        <div id="math-question">
+            <h2>Math Question</h2>
+            <p id="math-problem"></p>
+            <input type="text" id="math-answer">
+            <button onclick="checkMathAnswer()">Submit</button>
+            <p id="math-feedback"></p>
+        </div>
+
+        <!-- Love Question -->
+        <div id="love-question">
+            <h2>Do you love me?</h2>
+            <button id="no-button" onclick="handleNoClick()">No</button>
+            <button id="yes-button" onclick="handleYesClick()">Yes</button>
+        </div>
+
+        <!-- Next Page Button -->
+        <button onclick="location.href='rewards.html'">Go to Rewards</button>
     </div>
-
-    <!-- Math Question -->
-    <div id="math-question">
-        <h2>Math Question</h2>
-        <p id="math-problem"></p>
-        <input type="text" id="math-answer">
-        <button onclick="checkMathAnswer()">Submit</button>
-        <p id="math-feedback"></p>
-    </div>
-
-    <!-- Love Question -->
-    <div id="love-question">
-        <h2>Do you love me?</h2>
-        <button id="no-button" onclick="handleNoClick()">No</button>
-        <button id="yes-button" onclick="handleYesClick()">Yes</button>
-    </div>
-
-    <!-- Next Page Button -->
-    <button onclick="location.href='rewards.html'">Go to Rewards</button>
 </body>
 </html>
