@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const puzzleSize = 4; // 4x4 puzzle
     const totalPieces = puzzleSize * puzzleSize - 1; // One piece will be empty
     let pieces = [];
-    let emptyIndex = totalPieces; // Last piece is empty
+    let emptyIndex = totalPieces; // The last piece is empty
 
     function createPuzzle() {
         puzzleContainer.innerHTML = '';
@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = Math.floor(i / puzzleSize) * 100;
             piece.style.backgroundPosition = `-${x}px -${y}px`;
             piece.dataset.index = i;
+            piece.style.order = i;
 
-            piece.setAttribute('draggable', 'true');
+            piece.draggable = true;
             piece.addEventListener('dragstart', dragStart);
             piece.addEventListener('dragend', dragEnd);
 
@@ -28,8 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
             puzzleContainer.appendChild(piece);
         }
 
+        // Add an empty div for the empty space
         const emptyDiv = document.createElement('div');
         emptyDiv.className = 'puzzle-piece empty';
+        emptyDiv.style.order = totalPieces;
         puzzleContainer.appendChild(emptyDiv);
 
         shufflePuzzle();
@@ -44,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function dragStart(event) {
+        event.dataTransfer.setData('text/plain', event.target.style.order);
         event.target.classList.add('dragging');
-        event.dataTransfer.setData('text/plain', event.target.dataset.index);
     }
 
     function dragEnd(event) {
@@ -56,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const draggingPiece = document.querySelector('.dragging');
         const target = event.target;
-        
+
         if (target && target.classList.contains('empty')) {
             const emptyOrder = parseInt(target.style.order, 10);
             const draggingOrder = parseInt(draggingPiece.style.order, 10);
-            
+
             if (isValidMove(emptyOrder, draggingOrder)) {
                 swapPieces(draggingPiece, target);
             }
