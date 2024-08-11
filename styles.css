@@ -1,36 +1,53 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     margin: 0;
     padding: 0;
-    color: #fff;
 }
 
-/* Background Styles */
-.background {
-    background: url(pathtoyourbackground-image.jpg) no-repeat center center fixed;
-    background-size: cover;
-    height: 100vh;
+/* Mini Games Background */
+.minigames-bg {
+    background-color: #ffccff; /* Light Pink Background */
+    color: #000; /* Black Text */
+    text-align: center;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-/* Heading Styles */
-h1 {
-    font-size: 3em;
-    margin: 0;
+/* Container for Mini Games */
+.minigames-container {
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Paragraph Styles */
-p {
-    font-size: 1.5em;
+/* Puzzle Styles */
+#puzzle {
+    margin: 20px 0;
 }
 
-/* Button Styles */
+#puzzle-container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 2px;
+    margin: 20px auto;
+}
+
+.puzzle-piece {
+    width: 100px;
+    height: 100px;
+    background-size: 300px 300px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
 button {
     margin: 10px;
     padding: 10px 20px;
