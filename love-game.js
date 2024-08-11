@@ -1,26 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const noButton = document.getElementById('no-button');
-    const yesButton = document.getElementById('yes-button');
+    let skipped = false;
 
-    function handleNoClick() {
-        const randX = Math.floor(Math.random() * 300) + 'px';
-        const randY = Math.floor(Math.random() * 300) + 'px';
-        noButton.style.position = 'absolute';
-        noButton.style.left = randX;
-        noButton.style.top = randY;
+    function handleYes() {
+        document.getElementById('next-game-button').style.display = 'block';
     }
 
-    function handleYesClick() {
-        alert("Yay! You love me!");
-        yesButton.style.display = 'none';
-        noButton.style.display = 'none';
-        const goToRewardsButton = document.createElement('button');
-        goToRewardsButton.innerText = "Go to Rewards";
-        goToRewardsButton.className = 'purple-button';
-        goToRewardsButton.onclick = () => location.href = 'rewards.html';
-        document.querySelector('.content-container').appendChild(goToRewardsButton);
+    function handleNo() {
+        // No button functionality - Optional
     }
 
-    noButton.addEventListener('click', handleNoClick);
-    yesButton.addEventListener('click', handleYesClick);
+    function handleSkip() {
+        skipped = true;
+        localStorage.setItem('skipCount', (parseInt(localStorage.getItem('skipCount')) || 0) + 1);
+        localStorage.setItem('canSelectReward', 'false');
+        window.location.href = 'rewards.html';
+    }
+
+    window.handleYes = handleYes;
+    window.handleNo = handleNo;
+    window.handleSkip = handleSkip;
 });
