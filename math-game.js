@@ -1,38 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mathQuestionsContainer = document.getElementById('math-questions-container');
+    const questionsContainer = document.getElementById('math-questions-container');
+    const numQuestions = 10;
+    let currentQuestion = 0;
 
-    const questions = [
-        { question: '5 + 3', answer: 8 },
-        { question: '10 - 4', answer: 6 },
-        { question: '7 * 2', answer: 14 },
-        { question: '9 / 3', answer: 3 },
-    ];
+    function generateMathQuestions() {
+        for (let i = 0; i < numQuestions; i++) {
+            const questionElement = document.createElement('p');
+            questionElement.textContent = `Question ${i + 1}: What is ${Math.floor(Math.random() * 10)} + ${Math.floor(Math.random() * 10)}?`;
+            const answerInput = document.createElement('input');
+            answerInput.type = 'number';
+            answerInput.id = `answer-${i}`;
+            questionsContainer.appendChild(questionElement);
+            questionsContainer.appendChild(answerInput);
+        }
+        const submitButton = document.createElement('button');
+        submitButton.textContent = 'Submit';
+        submitButton.onclick = handleSubmit;
+        questionsContainer.appendChild(submitButton);
+    }
 
-    questions.forEach((q, index) => {
-        const div = document.createElement('div');
-        div.className = 'question';
-
-        const label = document.createElement('label');
-        label.textContent = q.question + ' = ';
-        div.appendChild(label);
-
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.id = 'answer-' + index;
-        div.appendChild(input);
-
-        mathQuestionsContainer.appendChild(div);
-    });
-
-    function checkAnswers() {
+    function handleSubmit() {
         let allCorrect = true;
-        questions.forEach((q, index) => {
-            const userAnswer = parseInt(document.getElementById('answer-' + index).value);
-            if (userAnswer !== q.answer) {
+        for (let i = 0; i < numQuestions; i++) {
+            const input = document.getElementById(`answer-${i}`);
+            const questionText = document.querySelector(`#math-questions-container p:nth-child(${i * 2 + 1})`).textContent;
+            const [_, a, b] = questionText.match(/What is (\d+) \+ (\d+)\?/);
+            if (parseInt(input.value, 10) !== (parseInt(a, 10) + parseInt(b, 10))) {
                 allCorrect = false;
+                break;
             }
-        });
-
+        }
         if (allCorrect) {
             document.getElementById('next-game-button').style.display = 'block';
         } else {
@@ -40,12 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function handleSkip() {
-        const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
-        localStorage.setItem('skipCount', skipCount + 1);
-        window.location.href = 'love-game.html';
-    }
-
-    document.getElementById('next-game-button').addEventListener('click', checkAnswers);
-    window.handleSkip = handleSkip;
+    generateMathQuestions();
 });
