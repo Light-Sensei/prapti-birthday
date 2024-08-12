@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { question: '10 - 4', answer: 6 },
         { question: '7 * 2', answer: 14 },
         { question: '9 / 3', answer: 3 },
-        // Add more questions as needed
     ];
 
     questions.forEach((q, index) => {
