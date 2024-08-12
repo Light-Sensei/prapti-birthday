@@ -1,19 +1,46 @@
-function handleYes() {
-    const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
-    if (skipCount > 1) {
-        alert("You skipped too many games! You can't select your reward.");
-    } else {
+document.addEventListener('DOMContentLoaded', () => {
+    let skipped = false;
+
+    function handleYes() {
+        document.getElementById('next-game-button').style.display = 'block';
+    }
+
+    function handleNo() {
+        const noButton = document.getElementById('no-button');
+        const yesButton = document.getElementById('yes-button');
+
+        noButton.style.position = 'relative';
+        noButton.style.top = `${Math.random() * 10}px`;
+        noButton.style.left = `${Math.random() * 10}px`;
+
+        yesButton.style.fontSize = '1.5rem';
+    }
+
+    function handleSkip() {
+        skipped = true;
+        let skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
+        skipCount++;
+        localStorage.setItem('skipCount', skipCount);
+
+        if (skipCount > 1) {
+            localStorage.setItem('canSelectReward', 'false');
+        }
+
         window.location.href = 'rewards.html';
     }
-}
 
-function handleNo() {
-    alert('Please try again!');
-    // The button can move around here if needed
-}
+    function goToNextGame() {
+        const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
 
-function handleSkip() {
-    const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
-    localStorage.setItem('skipCount', skipCount + 1);
-    window.location.href = 'rewards.html';
-}
+        if (skipCount > 1) {
+            localStorage.setItem('canSelectReward', 'false');
+        }
+
+        window.location.href = 'rewards.html';
+    }
+
+    window.handleYes = handleYes;
+    window.handleNo = handleNo;
+    window.handleSkip = handleSkip;
+    window.goToNextGame = goToNextGame;
+});
