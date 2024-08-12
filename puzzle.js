@@ -1,86 +1,93 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const imageSrc = 'https://i.scdn.co/image/ab67616d0000b27364e7a260933998d297e0a1de'; // Update with your image URL
-    const rows = 4;
-    const cols = 4;
-    let emptyX = 3;
-    let emptyY = 3;
-
     const puzzleContainer = document.getElementById('puzzle-container');
-    puzzleContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    puzzleContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-    // Create the puzzle pieces
+    const imageUrl = 'https://i.scdn.co/image/ab67616d0000b27364e7a260933998d297e0a1de';
+    const puzzleSize = 4; // 4x4 puzzle
+    const totalPieces = puzzleSize * puzzleSize - 1; // One piece will be empty
     let pieces = [];
-    for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-            if (x === 3 && y === 3) continue; // Leave the last piece as empty
+    let emptyIndex = totalPieces; // The last piece is empty
 
+    function createPuzzle() {
+        puzzleContainer.innerHTML = '';
+        pieces = [];
+
+        for (let i = 0; i < totalPieces; i++) {
             const piece = document.createElement('div');
             piece.className = 'puzzle-piece';
-            piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundSize = `${cols * 100}% ${rows * 100}%`;
-            piece.style.backgroundPosition = `${(x / (cols - 1)) * 100}% ${(y / (rows - 1)) * 100}%`;
-            piece.dataset.x = x;
-            piece.dataset.y = y;
+            piece.style.backgroundImage = `url(${imageUrl})`;
+
+            const x = (i % puzzleSize) * 100;
+            const y = Math.floor(i / puzzleSize) * 100;
+            piece.style.backgroundPosition = `-${x}px -${y}px`;
+            piece.dataset.index = i;
+            piece.style.order = i;
+
+            piece.draggable = true;
+            piece.addEventListener('dragstart', dragStart);
+            piece.addEventListener('dragend', dragEnd);
+
             pieces.push(piece);
             puzzleContainer.appendChild(piece);
-
-            piece.addEventListener('click', () => {
-                movePiece(x, y);
-            });
         }
+
+        // Add an empty div for the empty space
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'puzzle-piece empty';
+        emptyDiv.style.order = totalPieces;
+        puzzleContainer.appendChild(emptyDiv);
+
+        shufflePuzzle();
     }
 
-    // Shuffle the puzzle pieces (simple shuffle)
-    pieces.forEach(piece => {
-        const randomIndex = Math.floor(Math.random() * pieces.length);
-        puzzleContainer.appendChild(pieces[randomIndex]);
+    function shufflePuzzle() {
+        const shuffledIndexes = [...Array(totalPieces).keys()].sort(() => Math.random() - 0.5);
+        pieces.forEach((piece, i) => {
+            piece.dataset.index = shuffledIndexes[i];
+            piece.style.order = shuffledIndexes[i];
+        });
+    }
+
+    function dragStart(event) {
+        event.dataTransfer.setData('text/plain', event.target.style.order);
+        event.target.classList.add('dragging');
+    }
+
+    function dragEnd(event) {
+        event.target.classList.remove('dragging');
+    }
+
+    puzzleContainer.addEventListener('dragover', event => {
+        event.preventDefault();
+        const draggingPiece = document.querySelector('.dragging');
+        const target = event.target;
+
+        if (target && target.classList.contains('empty')) {
+            const emptyOrder = parseInt(target.style.order, 10);
+            const draggingOrder = parseInt(draggingPiece.style.order, 10);
+
+            if (isValidMove(emptyOrder, draggingOrder)) {
+                swapPieces(draggingPiece, target);
+            }
+        }
     });
 
-    function movePiece(x, y) {
-        const dx = Math.abs(x - emptyX);
-        const dy = Math.abs(y - emptyY);
+    function swapPieces(draggingPiece, emptyPiece) {
+        const tempOrder = draggingPiece.style.order;
+        draggingPiece.style.order = emptyPiece.style.order;
+        emptyPiece.style.order = tempOrder;
 
-        if (dx + dy === 1) {
-            const piece = document.querySelector(`.puzzle-piece[data-x="${x}"][data-y="${y}"]`);
-            piece.style.gridColumnStart = emptyX + 1;
-            piece.style.gridRowStart = emptyY + 1;
-
-            // Swap coordinates
-            piece.dataset.x = emptyX;
-            piece.dataset.y = emptyY;
-
-            emptyX = x;
-            emptyY = y;
-
-            checkWinCondition();
-        }
-    }
-
-    function checkWinCondition() {
-        const pieces = document.querySelectorAll('.puzzle-piece');
-        let correct = true;
-        pieces.forEach(piece => {
-            const x = parseInt(piece.dataset.x);
-            const y = parseInt(piece.dataset.y);
-            const index = y * cols + x;
-            const correctX = index % cols;
-            const correctY = Math.floor(index / cols);
-            if (x !== correctX || y !== correctY) {
-                correct = false;
-            }
-        });
-
-        if (correct) {
+        if (isPuzzleSolved()) {
             document.getElementById('next-game-button').style.display = 'block';
         }
     }
 
-    function handleSkip() {
-        const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
-        localStorage.setItem('skipCount', skipCount + 1);
-        window.location.href = 'math-game.html';
+    function isValidMove(emptyOrder, draggingOrder) {
+        const diff = Math.abs(emptyOrder - draggingOrder);
+        return diff === 1 || diff === puzzleSize;
     }
 
-    window.handleSkip = handleSkip;
+    function isPuzzleSolved() {
+        return pieces.every(piece => parseInt(piece.dataset.index, 10) === parseInt(piece.style.order, 10));
+    }
+
+    createPuzzle();
 });
