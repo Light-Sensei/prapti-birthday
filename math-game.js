@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (allCorrect) {
             document.getElementById('next-game-button').style.display = 'block';
         } else {
-            alert('Some answers are incorrect. Please try again.');
+            alert('galat kri h be tune chutiye');
         }
     }
 
