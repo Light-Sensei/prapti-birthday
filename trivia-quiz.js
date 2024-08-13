@@ -1,6 +1,6 @@
 const questions = [
     {question: "who loves u the most?", options: ["naim", "nayeem", "niam"], answer: "naim"},
-    {question: "whos the best sniper??", options: ["7 RoitoTT", "GyattBptRoito", "me"], answer: "GyattBotRoito"}
+    {question: "whos the best sniper??", options: ["7 RoitoTT", "GyattBotRoito", "me"], answer: "GyattBotRoito"}
 ];
 
 let currentQuestionIndex = 0;
