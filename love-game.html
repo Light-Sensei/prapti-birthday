@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Game</title>
+    <title>genuine question</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="love-game.js" defer></script>
-    <script src="skip.js" defer></script>
 </head>
 <body class="background-image">
     <div class="content-container">
         <h1>Do You Love Me?</h1>
         <button id="yes-button" onclick="handleYes()">Yes</button>
         <button id="no-button" onclick="handleNo()">No</button>
-        <button id="skip-button" onclick="handleSkip()">Skip</button>
-        <button id="next-game-button" style="display: none;" onclick="goToNextGame()">Next Game</button>
+        <button id="skip-button" onclick="window.location.href='message.html'">Skip</button>
     </div>
+    <script>
+        let noButton = document.getElementById('no-button');
+        let noClicks = 0;
+
+        function handleYes() {
+            window.location.href = 'message.html';
+        }
+
+        function handleNo() {
+            noClicks++;
+            if (noClicks < 5) {
+                noButton.style.width = (100 - noClicks * 20) + 'px'; // Reduce width by 20px each click
+                noButton.style.position = 'absolute';
+                noButton.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+                noButton.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            } else {
+                noButton.style.display = 'none'; // Hide the button after 5 clicks
+            }
+        }
+    </script>
 </body>
 </html>
