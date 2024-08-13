@@ -1,93 +1,76 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const puzzleContainer = document.getElementById('puzzle-container');
-    const imageUrl = 'https://i.pinimg.com/736x/90/cf/99/90cf9973fedac90bf15a69346b2940b4.jpg';
-    const puzzleSize = 4; // 4x4 puzzle
-    const totalPieces = puzzleSize * puzzleSize - 1; // One piece will be empty
-    let pieces = [];
-    let emptyIndex = totalPieces; // The last piece is empty
+const imgUrl = 'https://i.scdn.co/image/ab67616d0000b27364e7a260933998d297e0a1de';
+const rows = 3;
+const cols = 3;
+const pieceSize = 100; // Size of each piece
 
-    function createPuzzle() {
-        puzzleContainer.innerHTML = '';
-        pieces = [];
+let pieces = [];
+let board = document.getElementById('puzzle-board');
+let solved = false;
 
-        for (let i = 0; i < totalPieces; i++) {
+function initPuzzle() {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
             const piece = document.createElement('div');
             piece.className = 'puzzle-piece';
-            piece.style.backgroundImage = `url(${imageUrl})`;
-
-            const x = (i % puzzleSize) * 100;
-            const y = Math.floor(i / puzzleSize) * 100;
-            piece.style.backgroundPosition = `-${x}px -${y}px`;
-            piece.dataset.index = i;
-            piece.style.order = i;
-
+            piece.style.backgroundImage = `url(${imgUrl})`;
+            piece.style.backgroundPosition = `-${c * pieceSize}px -${r * pieceSize}px`;
+            piece.style.top = `${r * pieceSize}px`;
+            piece.style.left = `${c * pieceSize}px`;
             piece.draggable = true;
+            piece.dataset.position = `${r},${c}`;
             piece.addEventListener('dragstart', dragStart);
-            piece.addEventListener('dragend', dragEnd);
-
+            piece.addEventListener('dragover', dragOver);
+            piece.addEventListener('drop', drop);
             pieces.push(piece);
-            puzzleContainer.appendChild(piece);
+            board.appendChild(piece);
         }
-
-        // Add an empty div for the empty space
-        const emptyDiv = document.createElement('div');
-        emptyDiv.className = 'puzzle-piece empty';
-        emptyDiv.style.order = totalPieces;
-        puzzleContainer.appendChild(emptyDiv);
-
-        shufflePuzzle();
     }
+    board.style.width = `${cols * pieceSize}px`;
+    board.style.height = `${rows * pieceSize}px`;
+}
 
-    function shufflePuzzle() {
-        const shuffledIndexes = [...Array(totalPieces).keys()].sort(() => Math.random() - 0.5);
-        pieces.forEach((piece, i) => {
-            piece.dataset.index = shuffledIndexes[i];
-            piece.style.order = shuffledIndexes[i];
-        });
-    }
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.dataset.position);
+}
 
-    function dragStart(event) {
-        event.dataTransfer.setData('text/plain', event.target.style.order);
-        event.target.classList.add('dragging');
-    }
+function dragOver(e) {
+    e.preventDefault();
+}
 
-    function dragEnd(event) {
-        event.target.classList.remove('dragging');
-    }
+function drop(e) {
+    e.preventDefault();
+    const fromPosition = e.dataTransfer.getData('text/plain').split(',').map(Number);
+    const toPosition = e.target.dataset.position.split(',').map(Number);
 
-    puzzleContainer.addEventListener('dragover', event => {
-        event.preventDefault();
-        const draggingPiece = document.querySelector('.dragging');
-        const target = event.target;
+    if (fromPosition.join(',') === toPosition.join(',')) return;
 
-        if (target && target.classList.contains('empty')) {
-            const emptyOrder = parseInt(target.style.order, 10);
-            const draggingOrder = parseInt(draggingPiece.style.order, 10);
+    const fromPiece = pieces.find(p => p.dataset.position === fromPosition.join(','));
+    const toPiece = pieces.find(p => p.dataset.position === toPosition.join(','));
 
-            if (isValidMove(emptyOrder, draggingOrder)) {
-                swapPieces(draggingPiece, target);
-            }
+    if (toPiece) {
+        const tempStyle = fromPiece.style.cssText;
+        fromPiece.style.cssText = toPiece.style.cssText;
+        toPiece.style.cssText = tempStyle;
+
+        if (isSolved()) {
+            document.getElementById('next-game').style.display = 'block';
+            solved = true;
         }
+    }
+}
+
+function isSolved() {
+    return pieces.every(piece => {
+        const [r, c] = piece.dataset.position.split(',').map(Number);
+        const top = parseInt(piece.style.top);
+        const left = parseInt(piece.style.left);
+        return top === r * pieceSize && left === c * pieceSize;
     });
+}
 
-    function swapPieces(draggingPiece, emptyPiece) {
-        const tempOrder = draggingPiece.style.order;
-        draggingPiece.style.order = emptyPiece.style.order;
-        emptyPiece.style.order = tempOrder;
+function skipGame() {
+    // Redirect to the next game directly if skipped
+    window.location.href = 'word-scramble.html';
+}
 
-        if (isPuzzleSolved()) {
-            document.getElementById('next-game-button').style.display = 'block';
-        }
-    }
-
-    function isValidMove(emptyOrder, draggingOrder) {
-        const diff = Math.abs(emptyOrder - draggingOrder);
-        return diff === 1 || diff === puzzleSize;
-    }
-
-    function isPuzzleSolved() {
-        return pieces.every(piece => parseInt(piece.dataset.index, 10) === parseInt(piece.style.order, 10));
-    }
-
-    createPuzzle();
-});
+window.onload = initPuzzle;
