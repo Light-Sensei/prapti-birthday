@@ -22,13 +22,13 @@ function handleSkip() {
                 window.location.href = 'trivia-quiz.html';
                 break;
             case 'trivia-quiz':
-                window.location.href = 'maths-questions.html';
+                window.location.href = 'maths-game.html';
                 break;
             case 'maths-questions':
                 window.location.href = 'love-game.html';
                 break;
             case 'love-game':
-                window.location.href = 'special-msg.html';
+                window.location.href = 'message.html';
                 break;
             default:
                 window.location.href = 'home.html'; // Fallback to home if currentPage doesn't match
