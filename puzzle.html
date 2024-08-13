@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Puzzle</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #puzzle-container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
     <div class="content-container">
         <h1>Block Puzzle</h1>
-        <p>Drag and drop the pieces to solve the puzzle!</p>
-        <div id="puzzle-board"></div>
+        <div id="puzzle-container"></div>
         <button id="next-game" style="display: none;" onclick="window.location.href='word-scramble.html'">Next Game</button>
         <button id="skip" onclick="skipGame()">Skip</button>
     </div>
