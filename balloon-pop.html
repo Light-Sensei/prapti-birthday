@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Pop Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="background-image">
+    <div class="content-container">
+        <h1>Balloon Pop Game</h1>
+        <p>Click the balloons before they disappear!</p>
+        <div id="game-area"></div>
+        <p id="score">Score: 0</p>
+        <button onclick="startGame()">Start Game</button>
+        <button id="next-game" style="display: none;" onclick="window.location.href='trivia-quiz.html'">Next Game</button>
+        <button id="skip-button" onclick="window.location.href='trivia-quiz.html'">Skip</button>
+    </div>
+    <script src="balloon-pop.js"></script>
+</body>
+</html>
