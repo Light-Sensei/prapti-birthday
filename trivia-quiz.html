@@ -6,15 +6,12 @@
     <title>Trivia Quiz</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="background-image">
+<body>
     <div class="content-container">
         <h1>Trivia Quiz</h1>
-        <div id="quiz-container">
-            <p id="question"></p>
-            <div id="options"></div>
-        </div>
-        <button id="next-game" style="display: none;" onclick="window.location.href='word-scramble.html'">Next Game</button>
-        <button id="skip-button" onclick="window.location.href='word-scramble.html'">Skip</button>
+        <div id="quiz-container"></div>
+        <button id="next-game" style="display: none;" onclick="window.location.href='maths-questions.html'">Next Game</button>
+        <button id="skip" onclick="skipGame()">Skip</button>
     </div>
     <script src="trivia-quiz.js"></script>
 </body>
