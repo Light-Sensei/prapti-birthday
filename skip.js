@@ -22,7 +22,7 @@ function handleSkip() {
                 window.location.href = 'trivia-quiz.html';
                 break;
             case 'trivia-quiz':
-                window.location.href = 'maths-game.html';
+                window.location.href = 'math-game.html';
                 break;
             case 'maths-questions':
                 window.location.href = 'love-game.html';
