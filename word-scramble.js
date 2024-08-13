@@ -25,4 +25,9 @@ function checkAnswer() {
     }
 }
 
+function skipGame() {
+    // Redirect to the next game directly if skipped
+    window.location.href = 'balloon-pop.html';
+}
+
 window.onload = loadScrambledWord;
