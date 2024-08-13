@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const puzzleContainer = document.getElementById('puzzle-container');
-    const imageUrl = 'https://i.scdn.co/image/ab67616d0000b27364e7a260933998d297e0a1de';
+    const imageUrl = 'https://i.pinimg.com/736x/90/cf/99/90cf9973fedac90bf15a69346b2940b4.jpg';
     const puzzleSize = 4; // 4x4 puzzle
     const totalPieces = puzzleSize * puzzleSize - 1; // One piece will be empty
     let pieces = [];
