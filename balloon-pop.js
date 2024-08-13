@@ -28,12 +28,19 @@ function createBalloon() {
 
 function animateBalloon(balloon) {
     let bottom = 0;
-    const moveBalloon = setInterval(() => {
+    const interval = setInterval(() => {
         bottom += 2;
         balloon.style.bottom = bottom + 'px';
         if (bottom > window.innerHeight) {
+            clearInterval(interval);
             balloon.remove();
-            clearInterval(moveBalloon);
         }
     }, 20);
 }
+
+function skipGame() {
+    // Redirect to the next game directly if skipped
+    window.location.href = 'trivia-quiz.html';
+}
+
+window.onload = startGame;
