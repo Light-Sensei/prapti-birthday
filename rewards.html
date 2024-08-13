@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewards</title>
+    <title>Select Your Reward</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="background-image">
     <div class="content-container">
         <h1>Select Your Reward</h1>
         <div class="reward-container">
-            <img src="outfit1.jpg" alt="Outfit 1" onclick="selectReward()">
-            <img src="outfit2.jpg" alt="Outfit 2" onclick="selectReward()">
-            <img src="outfit3.jpg" alt="Outfit 3" onclick="selectReward()">
-            <img src="outfit4.jpg" alt="Outfit 4" onclick="selectReward()">
-            <img src="outfit5.jpg" alt="Outfit 5" onclick="selectReward()">
+            <img src="https://i.pinimg.com/564x/49/4a/85/494a85ce68d24fe0587ada40ca590f6d.jpg" alt="Outfit 1" onclick="selectReward()">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQZoyWQoXNTrD9nOdEBxp9tvMIVZRpTUYJwZhbhS41pZO7AWWy_4X6qsuqTADMBbOBdFY&usqp=CAU" alt="Outfit 2" onclick="selectReward()">
+            <img src="https://i.pinimg.com/736x/72/12/a5/7212a5a2608c8bf5f7204cc4e0b8f655.jpg" alt="Outfit 3" onclick="selectReward()">
+            <img src="https://i.pinimg.com/originals/5b/87/cc/5b87cc1d14cf463af3632dc15504e374.jpg" alt="Outfit 4" onclick="selectReward()">
+            <img src="https://m.media-amazon.com/images/I/61GEB3wTNHL._AC_SY780_.jpg" alt="Outfit 5" onclick="selectReward()">
         </div>
     </div>
     <script>
         function selectReward() {
-            const skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
-            if (skipCount > 1) {
-                alert("You skipped too many games! You can't select a reward.");
-            } else {
-                alert("yayyyyy, you got it :3 (sorry, I can't get you the real one im broke)");
-            }
+            // Simply allow reward selection without any conditions
+            alert("Yay, you got it! (Sorry, I can't get you the real one.)");
         }
     </script>
 </body>
