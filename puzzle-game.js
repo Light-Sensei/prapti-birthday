@@ -1,100 +1,93 @@
-const imageUrl = 'https://i.scdn.co/image/ab67616d0000b27364e7a260933998d297e0a1de';
-const rows = 3;
-const cols = 3;
-const pieceSize = 100; // Size of each piece
-const puzzleContainer = document.getElementById('puzzle-container');
-const nextGameButton = document.getElementById('next-game');
-
-function createPuzzle() {
+document.addEventListener('DOMContentLoaded', () => {
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const imageUrl = 'https://i.pinimg.com/736x/90/cf/99/90cf9973fedac90bf15a69346b2940b4.jpg';
+    const puzzleSize = 4; // 4x4 puzzle
+    const totalPieces = puzzleSize * puzzleSize - 1; // One piece will be empty
     let pieces = [];
-    for (let i = 0; i < rows * cols; i++) {
-        pieces.push(i);
+    let emptyIndex = totalPieces; // The last piece is empty
+
+    function createPuzzle() {
+        puzzleContainer.innerHTML = '';
+        pieces = [];
+
+        for (let i = 0; i < totalPieces; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'puzzle-piece';
+            piece.style.backgroundImage = `url(${imageUrl})`;
+
+            const x = (i % puzzleSize) * 100;
+            const y = Math.floor(i / puzzleSize) * 100;
+            piece.style.backgroundPosition = `-${x}px -${y}px`;
+            piece.dataset.index = i;
+            piece.style.order = i;
+
+            piece.draggable = true;
+            piece.addEventListener('dragstart', dragStart);
+            piece.addEventListener('dragend', dragEnd);
+
+            pieces.push(piece);
+            puzzleContainer.appendChild(piece);
+        }
+
+        // Add an empty div for the empty space
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'puzzle-piece empty';
+        emptyDiv.style.order = totalPieces;
+        puzzleContainer.appendChild(emptyDiv);
+
+        shufflePuzzle();
     }
 
-    // Shuffle pieces
-    pieces = pieces.sort(() => Math.random() - 0.5);
-
-    pieces.forEach((piece, index) => {
-        const x = (piece % cols) * pieceSize;
-        const y = Math.floor(piece / cols) * pieceSize;
-        const pieceElement = document.createElement('div');
-        pieceElement.className = 'puzzle-piece';
-        pieceElement.style.backgroundImage = `url(${imageUrl})`;
-        pieceElement.style.backgroundPosition = `-${x}px -${y}px`;
-        pieceElement.style.left = `${(index % cols) * pieceSize}px`;
-        pieceElement.style.top = `${Math.floor(index / cols) * pieceSize}px`;
-        pieceElement.draggable = true;
-        pieceElement.dataset.index = index;
-
-        pieceElement.addEventListener('dragstart', dragStart);
-        pieceElement.addEventListener('dragover', dragOver);
-        pieceElement.addEventListener('drop', drop);
-
-        puzzleContainer.appendChild(pieceElement);
-    });
-
-    // Create empty slots
-    for (let i = 0; i < rows * cols; i++) {
-        const emptySlot = document.createElement('div');
-        emptySlot.className = 'puzzle-piece';
-        emptySlot.style.backgroundColor = '#eee';
-        emptySlot.style.left = `${(i % cols) * pieceSize}px`;
-        emptySlot.style.top = `${Math.floor(i / cols) * pieceSize}px`;
-        emptySlot.dataset.index = i;
-        emptySlot.addEventListener('dragover', dragOver);
-        emptySlot.addEventListener('drop', drop);
-        puzzleContainer.appendChild(emptySlot);
+    function shufflePuzzle() {
+        const shuffledIndexes = [...Array(totalPieces).keys()].sort(() => Math.random() - 0.5);
+        pieces.forEach((piece, i) => {
+            piece.dataset.index = shuffledIndexes[i];
+            piece.style.order = shuffledIndexes[i];
+        });
     }
-}
 
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.dataset.index);
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function drop(e) {
-    e.preventDefault();
-    const draggedIndex = e.dataTransfer.getData('text/plain');
-    const draggedElement = document.querySelector(`.puzzle-piece[data-index="${draggedIndex}"]`);
-    const targetIndex = e.target.dataset.index;
-    
-    if (targetIndex !== undefined) {
-        e.target.style.backgroundImage = draggedElement.style.backgroundImage;
-        e.target.style.backgroundPosition = draggedElement.style.backgroundPosition;
-        draggedElement.style.backgroundImage = '';
-        draggedElement.style.backgroundPosition = '';
-        draggedElement.dataset.index = targetIndex;
-        e.target.dataset.index = draggedIndex;
-        
-        checkCompletion();
+    function dragStart(event) {
+        event.dataTransfer.setData('text/plain', event.target.style.order);
+        event.target.classList.add('dragging');
     }
-}
 
-function checkCompletion() {
-    const pieces = document.querySelectorAll('.puzzle-piece');
-    let correct = true;
+    function dragEnd(event) {
+        event.target.classList.remove('dragging');
+    }
 
-    pieces.forEach(piece => {
-        const pieceIndex = parseInt(piece.dataset.index);
-        const left = parseInt(piece.style.left) / pieceSize;
-        const top = parseInt(piece.style.top) / pieceSize;
-        const correctIndex = top * cols + left;
+    puzzleContainer.addEventListener('dragover', event => {
+        event.preventDefault();
+        const draggingPiece = document.querySelector('.dragging');
+        const target = event.target;
 
-        if (pieceIndex !== correctIndex) {
-            correct = false;
+        if (target && target.classList.contains('empty')) {
+            const emptyOrder = parseInt(target.style.order, 10);
+            const draggingOrder = parseInt(draggingPiece.style.order, 10);
+
+            if (isValidMove(emptyOrder, draggingOrder)) {
+                swapPieces(draggingPiece, target);
+            }
         }
     });
 
-    if (correct) {
-        nextGameButton.style.display = 'block';
+    function swapPieces(draggingPiece, emptyPiece) {
+        const tempOrder = draggingPiece.style.order;
+        draggingPiece.style.order = emptyPiece.style.order;
+        emptyPiece.style.order = tempOrder;
+
+        if (isPuzzleSolved()) {
+            document.getElementById('next-game-button').style.display = 'block';
+        }
     }
-}
 
-function skipGame() {
-    window.location.href = 'word-scramble.html';
-}
+    function isValidMove(emptyOrder, draggingOrder) {
+        const diff = Math.abs(emptyOrder - draggingOrder);
+        return diff === 1 || diff === puzzleSize;
+    }
 
-window.onload = createPuzzle;
+    function isPuzzleSolved() {
+        return pieces.every(piece => parseInt(piece.dataset.index, 10) === parseInt(piece.style.order, 10));
+    }
+
+    createPuzzle();
+});
