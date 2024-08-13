@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     background: url('https://img.freepik.com/free-vector/rainbow-frame-cute-doodle-border-vector_53876-135969.jpg?size=626&ext=jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #fff;
+    color: #000; /* Changed to black for better contrast */
     margin: 0;
     padding: 0;
 }
@@ -30,7 +30,6 @@ button:hover {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-size: 300px 300px;
     border: 1px solid #000;
 }
 
@@ -51,4 +50,9 @@ button:hover {
     border: none;
     padding: 10px;
     border-radius: 5px;
+}
+
+#next-game, #skip {
+    display: block;
+    margin: 20px auto;
 }
