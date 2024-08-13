@@ -16,9 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentPage = window.location.pathname.split('/').pop();
 
         switch (currentPage) {
-            case 'puzzle.html':
-                window.location.href = 'math-game.html';
+            case 'puzzle-game.html':
+                window.location.href = 'word-scramble.html';
                 break;
+            case 'word-scramble.html':
+                window.location.href = 'trivia-quiz.html';
+            case 'trivia-quiz.html'
+                window.location.href = 'balloon-pop.html';
+            case 'balloon-pop.html':
+                window.location.href = 'math-game.html';
             case 'math-game.html':
                 window.location.href = 'love-game.html';
                 break;
