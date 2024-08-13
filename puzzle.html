@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle Game</title>
+    <title>Block Puzzle</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="puzzle.js" defer></script>
-    <script src="skip.js" defer></script>
 </head>
-<body class="background-image">
+<body>
     <div class="content-container">
-        <h1>Solve the Puzzle</h1>
-        <div id="puzzle-container" class="puzzle-4x4"></div>
-        <button id="next-game-button" style="display:none;" onclick="location.href='math-game.html'">Next Game</button>
-        <button id="skip-button" onclick="handleSkip()">Skip</button>
+        <h1>Block Puzzle</h1>
+        <p>Drag and drop the pieces to solve the puzzle!</p>
+        <div id="puzzle-board"></div>
+        <button id="next-game" style="display: none;" onclick="window.location.href='word-scramble.html'">Next Game</button>
+        <button id="skip" onclick="skipGame()">Skip</button>
     </div>
+    <script src="puzzle.js"></script>
 </body>
 </html>
