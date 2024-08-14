@@ -1,37 +1,47 @@
-let skippedGames = 0; // Tracks the number of games skipped
+let skipCount = 0; // Tracks the number of skips
 
-// Function to handle skipping a game
 function handleSkip() {
-    skippedGames += 1;
+    skipCount++;
+    
+    // Save the skipCount in localStorage to persist it across different games/pages
+    localStorage.setItem('skipCount', skipCount);
 
-    // Check if more than one game has been skipped
-    if (skippedGames > 1) {
-        alert('You have skipped more than one game. You cannot select a reward.');
-        window.location.href = 'home.html'; // Redirect to the home page or any page you prefer
-    } else {
-        // Proceed to the next game based on the current page
-        const currentPage = document.title.toLowerCase().replace(/ /g, '-'); // e.g., 'puzzle-game'
-        switch (currentPage) {
-            case 'puzzle-game':
-                window.location.href = 'word-scramble.html';
-                break;
-            case 'word-scramble':
-                window.location.href = 'balloon-pop.html';
-                break;
-            case 'balloon-pop':
-                window.location.href = 'trivia-quiz.html';
-                break;
-            case 'trivia-quiz':
-                window.location.href = 'math-game.html';
-                break;
-            case 'maths-questions':
-                window.location.href = 'love-game.html';
-                break;
-            case 'love-game':
-                window.location.href = 'message.html';
-                break;
-            default:
-                window.location.href = 'index.html'; // Fallback to home if currentPage doesn't match
-        }
+    // Redirect to the next game or to the reward page if all games are skipped
+    redirectToNextGame();
+}
+
+function redirectToNextGame() {
+    const currentUrl = window.location.pathname;
+    
+    // Adjust the logic here to determine the next game
+    if (currentUrl.includes('puzzle')) {
+        window.location.href = 'word-scramble.html';
+    } else if (currentUrl.includes('word-scramble')) {
+        window.location.href = 'balloon-pop.html';
+    } else if (currentUrl.includes('balloon-pop')) {
+        window.location.href = 'trivia-quiz.html';
+    } else if (currentUrl.includes('trivia-quiz')) {
+        window.location.href = 'math-game.html';
+    } else if (currentUrl.includes('math-game')) {
+        window.location.href = 'love-game.html';
+    } else if (currentUrl.includes('love-game')) {
+        window.location.href = 'message.html';
+    } else if (currentUrl.includes('message')) {
+        window.location.href = 'rewards.html';
     }
 }
+
+function checkSkipCount() {
+    // Get the skipCount from localStorage
+    skipCount = parseInt(localStorage.getItem('skipCount')) || 0;
+
+    // You can handle specific conditions based on skipCount here if needed
+    // For example, you can disable the rewards button if skipCount is too high.
+    if (skipCount > 1 && window.location.pathname.includes('rewards.html')) {
+        alert('oi complete all the games to get it LMFAO');
+        // Disable or hide reward selection options if needed
+    }
+}
+
+// Call this function on each page to enforce the skip logic
+document.addEventListener('DOMContentLoaded', checkSkipCount);
