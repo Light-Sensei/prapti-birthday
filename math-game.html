@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maths Questions</title>
+    <title>Math Game</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="math-game.js" defer></script>
+    <script src="skip.js" defer></script>
 </head>
-<body>
+<body class="background-image">
     <div class="content-container">
-        <h1>Maths Questions</h1>
-        <div id="questions-container"></div>
-        <button id="next-game" style="display: none;" onclick="window.location.href='love-game.html'">Next Game</button>
-        <button id="skip" onclick="skipGame()">Skip</button>
+        <h1>Solve the Math Questions</h1>
+        <div id="math-questions-container"></div>
+        <button id="next-game-button" style="display:none;" onclick="location.href='love-game.html'">Next Game</button>
+        <button id="skip-button" onclick="handleSkip()">Skip</button>
     </div>
-    <script src="math-game.js"></script>
 </body>
 </html>
