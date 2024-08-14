@@ -148,3 +148,20 @@ button#no-button {
     display: block;
     margin: 20px auto;
 }
+
+body {
+    color: #333; /* Make sure the text color contrasts well with the background */
+}
+input {
+    padding: 10px;
+    margin-top: 5px;
+}
+button {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+}
+
