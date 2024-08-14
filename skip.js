@@ -31,7 +31,7 @@ function handleSkip() {
                 window.location.href = 'message.html';
                 break;
             default:
-                window.location.href = 'home.html'; // Fallback to home if currentPage doesn't match
+                window.location.href = 'index.html'; // Fallback to home if currentPage doesn't match
         }
     }
 }
