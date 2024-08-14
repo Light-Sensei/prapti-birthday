@@ -1,7 +1,7 @@
 const words = [
-    {scrambled: "LOVEPURP", correct: "PURPLE"},
-    {scrambled: "MIBG", correct: "BGMI"},
-    {scrambled: "NEITEND", correct: "NITEND"}
+    {scrambled: "LEURPP", correct: "PURPLE"},
+    {scrambled: "MKTC", correct: "TMKC"},
+    {scrambled: "MODC", correct: "CODM"}
 ];
 
 let currentWordIndex = 0;
@@ -21,7 +21,7 @@ function checkAnswer() {
             document.getElementById('next-game').style.display = 'block';
         }
     } else {
-        alert("Incorrect! Try again.");
+        alert("L again get rekt");
     }
 }
 
