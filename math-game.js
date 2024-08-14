@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (allCorrect) {
             document.getElementById('next-game-button').style.display = 'block';
         } else {
-            alert('ma chuda bsdk galat kri h tune');
+            alert('Incorrect answer, please try again!');
         }
     }
 
