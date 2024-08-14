@@ -1,18 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     const questionsContainer = document.getElementById('math-questions-container');
     const numQuestions = 10;
-    let currentQuestion = 0;
 
     function generateMathQuestions() {
         for (let i = 0; i < numQuestions; i++) {
             const questionElement = document.createElement('p');
-            questionElement.textContent = `Question ${i + 1}: What is ${Math.floor(Math.random() * 10)} + ${Math.floor(Math.random() * 10)}?`;
+            const num1 = Math.floor(Math.random() * 10);
+            const num2 = Math.floor(Math.random() * 10);
+            questionElement.textContent = `Question ${i + 1}: What is ${num1} + ${num2}?`;
+
             const answerInput = document.createElement('input');
             answerInput.type = 'number';
             answerInput.id = `answer-${i}`;
+            answerInput.dataset.correctAnswer = num1 + num2;  // Store the correct answer in a data attribute
+
             questionsContainer.appendChild(questionElement);
             questionsContainer.appendChild(answerInput);
         }
+
         const submitButton = document.createElement('button');
         submitButton.textContent = 'Submit';
         submitButton.onclick = handleSubmit;
@@ -21,19 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleSubmit() {
         let allCorrect = true;
+
         for (let i = 0; i < numQuestions; i++) {
             const input = document.getElementById(`answer-${i}`);
-            const questionText = document.querySelector(`#math-questions-container p:nth-child(${i * 2 + 1})`).textContent;
-            const [_, a, b] = questionText.match(/What is (\d+) \+ (\d+)\?/);
-            if (parseInt(input.value, 10) !== (parseInt(a, 10) + parseInt(b, 10))) {
+            const correctAnswer = parseInt(input.dataset.correctAnswer, 10);
+
+            if (parseInt(input.value, 10) !== correctAnswer) {
                 allCorrect = false;
                 break;
             }
         }
+
         if (allCorrect) {
             document.getElementById('next-game-button').style.display = 'block';
         } else {
-            alert('galat kri h be tune chutiye');
+            alert('ma chuda bsdk galat kri h tune');
         }
     }
 
