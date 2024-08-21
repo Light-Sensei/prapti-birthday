@@ -30,18 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
         image3.style.opacity = '0';
         setTimeout(() => {
             lightsButton.style.display = 'block';
-        }, 2000); // Delay before "Switch on the Lights" button appears
+        }, 2000);
     }, 10500); // After 3 more seconds
 });
 
 function switchOnLights() {
-    const birthdayMessage = document.getElementById('birthday-message');
-    const lightsButton = document.getElementById('lights-button');
-    
-    lightsButton.style.display = 'none'; // Hide the button
-    birthdayMessage.classList.remove('hidden'); // Show the birthday message
-    
-    setTimeout(() => {
-        document.querySelector('.birthday-text').style.opacity = '1';
-    }, 500); // Delay before the "Happy Birthday" text appears
+    document.body.className = 'background-image';
+    document.getElementById('lights-button').style.display = 'none';
+    document.getElementById('birthday-message').style.display = 'block';
 }
