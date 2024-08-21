@@ -6,17 +6,20 @@
     <title>Happy Birthday Prapti</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="background-image">
-    <div class="content-container">
-        <h1 class="animated-text">Happy Birthday Prapti, My Cutie!</h1>
-        <button class="animated-button" onclick="location.href='puzzle-game.html'">Mini Games</button>
-        <button class="animated-button" onclick="handleRewardsClick()">Choose Your Reward</button>
+<body class="background-black">
+    <div id="image-sequence">
+        <img id="image1" src="https://i.pinimg.com/736x/d0/3b/32/d03b32e0fd161edbfcd62e1a56101adb.jpg" class="fade-image">
+        <img id="image2" src="https://i.pinimg.com/736x/cf/ad/b4/cfadb4573d2694959afcdc8b3243731c.jpg" class="fade-image" style="display:none;">
+        <img id="image3" src="https://i.pinimg.com/736x/34/5f/9f/345f9f47a3cb67cf6a7d2558e1403430.jpg" class="fade-image" style="display:none;">
+    </div>
+    
+    <button id="lights-button" style="display:none;" onclick="switchOnLights()">Switch on the Lights</button>
+    
+    <div id="birthday-message" class="hidden">
+        <h1 class="birthday-text">Happy Birthday Prapti!</h1>
+        <button class="play-button" onclick="location.href='puzzle-game.html'">Play Games</button>
     </div>
 
-    <script>
-        function handleRewardsClick() {
-            alert("You have to score points from the mini games to buy your rewards");
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
