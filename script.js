@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.fade-image');
     const lightsButton = document.getElementById('lights-button');
     const birthdayMessage = document.getElementById('birthday-message');
+    const mainBody = document.getElementById('main-body');
 
     let currentIndex = 0;
 
@@ -27,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function switchOnLights() {
-    document.body.classList.remove('background-black');
-    document.body.classList.add('background-original');
+    document.getElementById('main-body').className = 'background-original'; // Apply the original background
     document.getElementById('lights-button').style.display = 'none';
     document.getElementById('birthday-message').style.display = 'block';
 }
