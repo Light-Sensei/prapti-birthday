@@ -129,7 +129,7 @@ button#no-button {
     position: absolute;
     width: 100px;
     height: 150px;
-    background: url('https://image.shutterstock.com/image-vector/colorful-balloon-on-background-260nw-1100603861.jpg') no-repeat center center;
+    background: url('https://i.etsystatic.com/6779905/r/il/7f855e/610964969/il_570xN.610964969_t8jr.jpg') no-repeat center center;
     background-size: cover;
     cursor: pointer;
 }
@@ -219,7 +219,7 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: yellow;
+    color: yellow; /* Change text color to yellow */
 }
 
 .birthday-text {
