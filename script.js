@@ -8,22 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showNextImage() {
         if (currentImage < images.length) {
-            const img = document.createElement('img');
+            const img = document.getElementById(`image${currentImage + 1}`);
             img.src = images[currentImage];
-            img.className = 'fade-image';
             img.style.display = 'block';
-            document.getElementById('image-sequence').appendChild(img);
 
             setTimeout(() => {
                 img.style.opacity = 0;
                 setTimeout(() => {
-                    img.remove();
+                    img.style.display = 'none';
+                    img.style.opacity = 1;
                     currentImage++;
                     showNextImage();
                 }, 1000); // Fade-out duration
             }, 3000); // Display duration
         } else {
-            document.getElementById('lights-button').style.display = 'block';
+            document.getElementById('lights-button').classList.remove('hidden');
         }
     }
 
@@ -31,11 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function switchOnLights() {
-    document.body.className = "background-image"; // Change background
-    document.getElementById('lights-button').style.display = 'none';
+    document.getElementById('main-body').classList.remove('background-black');
+    document.getElementById('main-body').classList.add('background-image');
+    document.getElementById('lights-button').classList.add('hidden');
     document.getElementById('birthday-message').classList.remove('hidden');
 }
 
 function startGame() {
-    window.location.href = 'puzzle.html'; // Redirect to puzzle.html
+    window.location.href = 'puzzle.html'; // Redirect to the first game page
 }
