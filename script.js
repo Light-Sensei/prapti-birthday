@@ -7,17 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showNextImage() {
         if (currentIndex < images.length) {
+            images[currentIndex].style.display = 'block';
             images[currentIndex].style.opacity = '1';
 
             setTimeout(() => {
                 images[currentIndex].style.opacity = '0';
-                currentIndex++;
-                if (currentIndex < images.length) {
-                    setTimeout(showNextImage, 2000);
-                } else {
-                    lightsButton.style.display = 'block';
-                }
-            }, 3000);
+                setTimeout(() => {
+                    images[currentIndex].style.display = 'none';
+                    currentIndex++;
+                    showNextImage();
+                }, 1000); // Ensure image fades out before hiding
+            }, 3000); // Display each image for 3 seconds
+        } else {
+            lightsButton.style.display = 'block';
         }
     }
 
@@ -25,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function switchOnLights() {
-    document.body.className = 'background-original';
+    document.body.classList.remove('background-black');
+    document.body.classList.add('background-original');
     document.getElementById('lights-button').style.display = 'none';
     document.getElementById('birthday-message').style.display = 'block';
 }
