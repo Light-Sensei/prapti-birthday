@@ -1,41 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const image1 = document.getElementById('image1');
-    const image2 = document.getElementById('image2');
-    const image3 = document.getElementById('image3');
+    const images = document.querySelectorAll('.fade-image');
     const lightsButton = document.getElementById('lights-button');
     const birthdayMessage = document.getElementById('birthday-message');
 
-    // Sequence of images
-    setTimeout(() => {
-        image1.style.opacity = '1';
-    }, 500); // Delay before first image appears
+    let currentIndex = 0;
 
-    setTimeout(() => {
-        image1.style.opacity = '0';
-        image2.style.display = 'block';
-        setTimeout(() => {
-            image2.style.opacity = '1';
-        }, 500);
-    }, 3500); // After 3 seconds
+    function showNextImage() {
+        if (currentIndex < images.length) {
+            images[currentIndex].style.opacity = '1';
 
-    setTimeout(() => {
-        image2.style.opacity = '0';
-        image3.style.display = 'block';
-        setTimeout(() => {
-            image3.style.opacity = '1';
-        }, 500);
-    }, 7000); // After 3 more seconds
+            setTimeout(() => {
+                images[currentIndex].style.opacity = '0';
+                currentIndex++;
+                if (currentIndex < images.length) {
+                    setTimeout(showNextImage, 2000);
+                } else {
+                    lightsButton.style.display = 'block';
+                }
+            }, 3000);
+        }
+    }
 
-    setTimeout(() => {
-        image3.style.opacity = '0';
-        setTimeout(() => {
-            lightsButton.style.display = 'block';
-        }, 2000);
-    }, 10500); // After 3 more seconds
+    showNextImage();
 });
 
 function switchOnLights() {
-    document.body.className = 'background-image';
+    document.body.className = 'background-original';
     document.getElementById('lights-button').style.display = 'none';
     document.getElementById('birthday-message').style.display = 'block';
 }
