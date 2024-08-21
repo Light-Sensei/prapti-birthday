@@ -37,5 +37,5 @@ function switchOnLights() {
 }
 
 function startGame() {
-    window.location.href = 'puzzle.html'; // Redirect to the first game page
+    window.location.href = 'puzzle-game.html'; // Redirect to the first game page
 }
