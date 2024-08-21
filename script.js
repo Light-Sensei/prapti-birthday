@@ -32,3 +32,6 @@ function switchOnLights() {
     document.getElementById('lights-button').style.display = 'none';
     document.getElementById('birthday-message').style.display = 'block';
 }
+document.getElementById('play-button').addEventListener('click', () => {
+    window.location.href = 'puzzle-game.html'; // Redirect to puzzle page
+});
