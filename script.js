@@ -1,25 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('.fade-image');
-    const lightsButton = document.getElementById('lights-button');
-    const birthdayMessage = document.getElementById('birthday-message');
-
-    let currentIndex = 0;
+    const images = [
+        "https://i.pinimg.com/736x/24/35/13/243513e3b53e6661a8aa0508cf56b906.jpg",
+        "https://i.pinimg.com/736x/44/1f/fe/441ffec6fbe3635229182dd6f7cd98c6.jpg",
+        "https://i.pinimg.com/736x/ff/fa/55/fffa552ebd817d26cef6bd2083e4f28b.jpg"
+    ];
+    let currentImage = 0;
 
     function showNextImage() {
-        if (currentIndex < images.length) {
-            images[currentIndex].style.display = 'block';
-            images[currentIndex].style.opacity = '1';
+        if (currentImage < images.length) {
+            const img = document.createElement('img');
+            img.src = images[currentImage];
+            img.className = 'fade-image';
+            img.style.display = 'block';
+            document.getElementById('image-sequence').appendChild(img);
 
             setTimeout(() => {
-                images[currentIndex].style.opacity = '0';
+                img.style.opacity = 0;
                 setTimeout(() => {
-                    images[currentIndex].style.display = 'none';
-                    currentIndex++;
+                    img.remove();
+                    currentImage++;
                     showNextImage();
-                }, 1000); // Ensure image fades out before hiding
-            }, 3000); // Display each image for 3 seconds
+                }, 1000); // Fade-out duration
+            }, 3000); // Display duration
         } else {
-            lightsButton.style.display = 'block';
+            document.getElementById('lights-button').style.display = 'block';
         }
     }
 
@@ -27,8 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function switchOnLights() {
-    document.body.classList.remove('background-black');
-    document.body.classList.add('background-original');
+    document.body.className = "background-image"; // Change background
     document.getElementById('lights-button').style.display = 'none';
-    document.getElementById('birthday-message').style.display = 'block';
+    document.getElementById('birthday-message').classList.remove('hidden');
+}
+
+function startGame() {
+    window.location.href = 'puzzle.html'; // Redirect to puzzle.html
 }
