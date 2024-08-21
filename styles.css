@@ -193,6 +193,9 @@ body, html {
     background-position: center;
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .fade-image {
@@ -200,9 +203,9 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: auto;
-    object-fit: cover;
+    max-width: 80%; /* Adjusted to 80% of the viewport width */
+    max-height: 80%; /* Adjusted to 80% of the viewport height */
+    object-fit: contain; /* Ensures the image scales proportionally */
     transition: opacity 1s ease-in-out;
 }
 
@@ -249,6 +252,7 @@ body, html {
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .play-button:hover {
@@ -262,9 +266,11 @@ body, html {
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #lights-button:hover {
     background-color: darkpurple;
 }
+
 
