@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Happy Birthday Prapti</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="background-image">
     <div class="content-container">
-        <h1>Happy Birthday Prapti, My Cutie!</h1>
-        <button class="purple-button" onclick="location.href='puzzle-game.html'">Mini Games</button>
-        <button class="purple-button" onclick="showRewardMessage()">Choose Your Reward</button>
+        <h1 class="animated-text">Happy Birthday Prapti, My Cutie!</h1>
+        <button class="animated-button" onclick="location.href='puzzle.html'">Mini Games</button>
+        <button class="animated-button" onclick="handleRewardsClick()">Choose Your Reward</button>
     </div>
+
     <script>
-        function showRewardMessage() {
-            alert('You have to score points from the mini-games to buy your rewards');
+        function handleRewardsClick() {
+            alert("You have to score points from the mini games to buy your rewards");
         }
     </script>
 </body>
