@@ -219,7 +219,7 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: yellow; /* Change text color to yellow */
+    color: #A020F0; /* Change text color to purple */
 }
 
 .birthday-text {
