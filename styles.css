@@ -224,7 +224,7 @@ body, html {
 
 .birthday-text {
     font-size: 3em;
-    color: white;
+    color: yellow;
     margin: 20px;
     animation: bounceIn 2s;
 }
